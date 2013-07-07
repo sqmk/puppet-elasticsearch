@@ -27,7 +27,7 @@ You can clone this repo into your modules directory:
 $ git clone https://github.com/sqmk/puppet-elasticsearch.git
 ```
 
-## Installing ElasticSearch via Puppet
+## Installing ElasticSearch via Puppet manifest
 
 Include the following in your manifest to install ElasticSearch
 
