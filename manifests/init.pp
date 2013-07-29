@@ -25,10 +25,11 @@ class elasticsearch (
   $destination_file = "${destination_dir}/elastic-search-${version}.deb"
 
   file { $destination_dir:
-    ensure => 'directory'
+    ensure => 'directory',
+    before => Wget::Fetch['elasticsearch_deb'],
   }
 
-  wget::fetch { 'elasticsearch deb':
+  wget::fetch { 'elasticsearch_deb':
     source      => "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.deb",
     destination => $destination_file,
     timeout     => 0,
@@ -38,7 +39,7 @@ class elasticsearch (
   exec { 'elasticsearch installation':
     command => "dpkg -i ${destination_file}",
     creates => '/etc/init.d/elasticsearch',
-    require => Wget::Fetch['elasticsearch deb'],
+    require => Wget::Fetch['elasticsearch_deb'],
     notify  => Service['elasticsearch']
   }
 
